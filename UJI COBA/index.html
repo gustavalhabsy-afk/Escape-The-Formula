@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escape The Formula — Belajar Persamaan Kelas 10</title>
+<meta name="description" content="Game edukasi RPG dungeon untuk siswa kelas 10. Pelajari persamaan matematika sambil bertarung melawan monster dengan menjawab soal pilihan ganda.">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ======================================================= -->
+<!-- MAIN MENU SCREEN -->
+<!-- ======================================================= -->
+<section id="main-menu-screen" class="screen active-screen menu-screen">
+  <div class="menu-bg-overlay"></div>
+  <div class="menu-pixel-tiles" aria-hidden="true"></div>
+  <div class="menu-torches">
+    <span class="torch" aria-hidden="true">🔥</span>
+    <span class="torch" aria-hidden="true">🔥</span>
+  </div>
+
+  <div class="menu-hero-art">
+    <img src="assets/hero.png" alt="Hero - Math Student" class="menu-hero-img" id="menu-hero-img">
+  </div>
+
+  <div class="menu-content">
+    <h1 class="game-title">ESCAPE THE FORMULA</h1>
+    <p class="game-title-sub">DUNGEON</p>
+    <p class="game-subtitle">Taklukkan dungeon dengan kekuatan ilmu matematika!</p>
+    <p class="game-class-badge">📚 Matematika Kelas X · Persamaan</p>
+
+    <nav class="menu-buttons" aria-label="Menu Utama">
+      <button id="btn-start-game" class="btn btn-primary">⚔️ MULAI PETUALANGAN</button>
+      <button id="btn-leaderboard" class="btn btn-secondary">🏆 LEADERBOARD</button>
+      <button id="btn-character-select" class="btn btn-secondary">🧙 GANTI KARAKTER</button>
+      <button id="btn-biodata" class="btn btn-secondary">🪪 BIODATA SAYA</button>
+      <button id="btn-how-to-play" class="btn btn-secondary">📖 CARA BERMAIN</button>
+      <button id="btn-about" class="btn btn-secondary">ℹ️ TENTANG GAME</button>
+    </nav>
+
+    <p class="menu-footer">Gunakan WASD / Arrow Keys untuk bergerak · SPACE untuk interaksi</p>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- HOW TO PLAY SCREEN -->
+<!-- ======================================================= -->
+<section id="how-to-play-screen" class="screen overlay-screen">
+  <div class="info-panel">
+    <h2 class="panel-title">📖 CARA BERMAIN</h2>
+    <ul class="info-list">
+      <li><strong>Gerak:</strong> Gunakan <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> atau tombol panah untuk menjelajahi dungeon.</li>
+      <li><strong>Interaksi:</strong> Dekati monster/boss dan tekan <kbd>SPACE</kbd> atau langsung tabrak mereka untuk memulai pertarungan.</li>
+      <li><strong>Pertarungan:</strong> Jawab soal Matematika pilihan ganda. Benar = serang musuh, Salah = kehilangan 1 HP.</li>
+      <li><strong>Dialog:</strong> Setiap monster akan bicara dulu sebelum pertarungan dimulai.</li>
+      <li><strong>Tujuan:</strong> Kalahkan 3 monster penjaga untuk membuka ruang Boss, lalu kalahkan Boss untuk naik lantai.</li>
+      <li><strong>Topik:</strong> Lantai 1 = PLSV, Lantai 2 = SPLDV, Lantai 3 = Persamaan Kuadrat.</li>
+      <li><strong>HP:</strong> Kamu punya 3 HP. Jika HP habis, game berakhir.</li>
+    </ul>
+    <button class="btn btn-primary btn-back" data-back="main-menu-screen">← KEMBALI</button>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- ABOUT SCREEN -->
+<!-- ======================================================= -->
+<section id="about-screen" class="screen overlay-screen">
+  <div class="info-panel">
+    <h2 class="panel-title">ℹ️ TENTANG GAME</h2>
+    <p class="about-text">
+      <strong>Escape The Formula</strong> adalah media pembelajaran digital interaktif untuk siswa kelas 10 SMA/MA.
+      Game ini menggabungkan eksplorasi dungeon bergaya RPG dengan soal pilihan ganda Matematika.
+    </p>
+    <p class="about-text">
+      Topik yang dibahas meliputi <em>Persamaan Linear Satu Variabel (PLSV)</em>,
+      <em>Sistem Persamaan Linear Dua Variabel (SPLDV)</em>, dan
+      <em>Persamaan Kuadrat</em> — sesuai kurikulum Merdeka kelas 10.
+    </p>
+    <p class="about-text">
+      Setiap pertarungan memberikan umpan balik langsung beserta pembahasan singkat,
+      sehingga siswa dapat belajar dari kesalahan mereka.
+    </p>
+    <div class="about-credits">
+      <p>🎓 Dibuat sebagai media pembelajaran inovatif</p>
+      <p>💻 Dibangun dengan HTML · CSS · JavaScript</p>
+    </div>
+    <button class="btn btn-primary btn-back" data-back="main-menu-screen">← KEMBALI</button>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- BIODATA SCREEN (isi sebelum main / cek biodata) -->
+<!-- ======================================================= -->
+<section id="biodata-screen" class="screen overlay-screen">
+  <div class="info-panel biodata-panel">
+    <h2 class="panel-title" id="biodata-title">🪪 ISI BIODATA</h2>
+    <p class="biodata-desc" id="biodata-desc">Isi biodatamu dulu sebelum memulai petualangan!</p>
+    <form id="biodata-form" class="biodata-form" novalidate>
+      <div class="biodata-field">
+        <label class="biodata-label" for="biodata-nama">Nama Lengkap</label>
+        <input type="text" id="biodata-nama" class="biodata-input" placeholder="Contoh: Andi Saputra" maxlength="40" autocomplete="off">
+      </div>
+      <div class="biodata-field">
+        <label class="biodata-label" for="biodata-kelas">Kelas</label>
+        <input type="text" id="biodata-kelas" class="biodata-input" placeholder="Contoh: X-1" maxlength="20" autocomplete="off">
+      </div>
+      <div class="biodata-field">
+        <label class="biodata-label" for="biodata-nis">NIS</label>
+        <input type="text" id="biodata-nis" class="biodata-input" placeholder="Contoh: 24081045" maxlength="20" autocomplete="off">
+      </div>
+
+      <p id="biodata-error" class="biodata-error hidden"></p>
+
+      <div class="biodata-buttons">
+        <button type="submit" id="btn-biodata-submit" class="btn btn-primary">⚔️ MULAI PETUALANGAN</button>
+        <button type="button" class="btn btn-secondary btn-back" data-back="main-menu-screen">← KEMBALI</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- CHARACTER SELECT SCREEN -->
+<!-- ======================================================= -->
+<section id="character-select-screen" class="screen overlay-screen">
+  <div class="info-panel character-select-panel">
+    <h2 class="panel-title">🧙 GANTI KARAKTER</h2>
+    <p class="character-select-desc">Pilih karakter yang mau kamu mainkan di dungeon.</p>
+    <div id="character-select-list" class="character-select-list">
+      <!-- kartu karakter di-render lewat JS -->
+    </div>
+    <button class="btn btn-primary btn-back" data-back="main-menu-screen">← KEMBALI</button>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- LEADERBOARD SCREEN -->
+<!-- ======================================================= -->
+<section id="leaderboard-screen" class="screen overlay-screen">
+  <div class="info-panel leaderboard-panel">
+    <h2 class="panel-title">🏆 LEADERBOARD</h2>
+    <p class="leaderboard-sub">Peringkat berdasarkan skor tertinggi, lalu waktu pengerjaan tercepat</p>
+    <div id="leaderboard-status" class="leaderboard-status hidden"></div>
+    <div class="leaderboard-table-wrap">
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nama</th>
+            <th>Kelas</th>
+            <th>NIS</th>
+            <th>Skor</th>
+            <th>Waktu</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-body">
+          <tr><td colspan="6" class="leaderboard-empty">Memuat data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="biodata-buttons">
+      <button id="btn-leaderboard-refresh" class="btn btn-secondary" type="button">🔄 MUAT ULANG</button>
+      <button class="btn btn-primary btn-back" data-back="main-menu-screen">← KEMBALI</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- MAIN GAME SCREEN -->
+<!-- ======================================================= -->
+<section id="game-screen" class="screen">
+
+  <!-- HUD -->
+  <header class="hud" role="banner">
+    <div class="hud-item">
+      <span class="hud-label">LANTAI</span>
+      <span id="hud-floor" class="hud-value">1</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">TOPIK</span>
+      <span id="hud-topic" class="hud-value hud-topic">PLSV</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">SKOR LANTAI</span>
+      <span id="hud-floor-score" class="hud-value">0 / 100</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">SKOR TOTAL</span>
+      <span id="hud-total-score" class="hud-value">0</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">WAKTU</span>
+      <span id="hud-timer" class="hud-value">00:00</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">PLAYER HP</span>
+      <span id="hud-player-hp" class="hud-value hud-hp">❤️❤️❤️</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">MONSTER</span>
+      <span id="hud-npc-progress" class="hud-value">0 / 3</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">BOSS</span>
+      <span id="hud-boss-status" class="hud-value hud-locked">🔒 TERKUNCI</span>
+    </div>
+    <button id="btn-quit-to-menu" class="btn btn-tiny" title="Kembali ke Main Menu" aria-label="Kembali ke Menu">MENU</button>
+  </header>
+
+  <!-- Dungeon viewport -->
+  <main class="dungeon-wrapper" role="main">
+    <div id="dungeon-grid" class="dungeon-grid" role="grid" aria-label="Peta Dungeon"></div>
+    <!-- D-pad for mobile -->
+    <div class="dpad" aria-label="Kontrol Gerak" role="group">
+      <button class="dpad-btn dpad-up" id="dpad-up" aria-label="Gerak Atas">▲</button>
+      <button class="dpad-btn dpad-left" id="dpad-left" aria-label="Gerak Kiri">◀</button>
+      <button class="dpad-btn dpad-center" id="dpad-center" aria-label="Interaksi">●</button>
+      <button class="dpad-btn dpad-right" id="dpad-right" aria-label="Gerak Kanan">▶</button>
+      <button class="dpad-btn dpad-down" id="dpad-down" aria-label="Gerak Bawah">▼</button>
+    </div>
+  </main>
+
+  <!-- Toast message -->
+  <div id="toast-message" class="toast-message hidden" role="status" aria-live="polite"></div>
+</section>
+
+<!-- ======================================================= -->
+<!-- DIALOG MODAL (NPC conversation before battle) -->
+<!-- ======================================================= -->
+<div id="dialog-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dialog-enemy-name">
+  <div class="dialog-panel">
+    <div class="dialog-scene">
+      <!-- Enemy side -->
+      <div class="dialog-char-side dialog-enemy-side">
+        <div class="dialog-char-frame">
+          <img id="dialog-enemy-img" src="" alt="Monster" class="dialog-char-img">
+          <div class="dialog-hp-mini">
+            <span class="dialog-hp-label">HP</span>
+            <div class="dialog-hp-bar-track">
+              <div id="dialog-enemy-hp-bar" class="dialog-hp-bar-fill dialog-hp-enemy"></div>
+            </div>
+          </div>
+        </div>
+        <p id="dialog-enemy-name" class="dialog-char-name"></p>
+      </div>
+
+      <!-- Dialog speech bubble -->
+      <div class="dialog-speech-area">
+        <div class="dialog-speech-bubble" id="dialog-speech-bubble">
+          <p id="dialog-text" class="dialog-text"></p>
+        </div>
+        <div class="dialog-action-row">
+          <button id="btn-dialog-next" class="btn btn-secondary btn-dialog-next">Lanjut ▶</button>
+          <button id="btn-dialog-fight" class="btn btn-primary btn-dialog-fight hidden">⚔️ LAWAN!</button>
+        </div>
+      </div>
+
+      <!-- Player side -->
+      <div class="dialog-char-side dialog-player-side">
+        <div class="dialog-char-frame">
+          <img src="assets/hero.png" alt="Hero" class="dialog-char-img" id="dialog-player-img">
+          <div class="dialog-hp-mini">
+            <span class="dialog-hp-label">HP</span>
+            <div class="dialog-hp-bar-track">
+              <div id="dialog-player-hp-bar" class="dialog-hp-bar-fill dialog-hp-player"></div>
+            </div>
+          </div>
+        </div>
+        <p class="dialog-char-name">Kamu</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- BATTLE MODAL -->
+<!-- ======================================================= -->
+<div id="battle-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="battle-vs-title">
+
+  <!-- Bookworm-style: Arena atas + Panel soal bawah -->
+  <div class="battle-panel">
+
+    <!-- Arena header: Topik & lantai -->
+    <div class="battle-header">
+      <span id="battle-topic-label" class="battle-topic-badge">📐 PLSV</span>
+      <span class="battle-vs-title" id="battle-vs-title">Enemy</span>
+      <span id="battle-floor-label" class="battle-floor-badge">Lantai 1</span>
+    </div>
+
+    <!-- Arena sprites -->
+    <div class="battle-arena">
+
+      <!-- Attack FX overlay (Pokémon-style effects rendered here) -->
+      <div id="attack-fx-overlay" class="attack-fx-overlay" aria-hidden="true"></div>
+
+      <div class="battle-side battle-side-player">
+        <div class="sprite-frame" id="player-sprite-frame">
+          <img id="battle-player-sprite" src="assets/hero.png" alt="Hero" class="sprite-img">
+        </div>
+        <p class="battle-char-label">Kamu</p>
+        <div class="hp-bar-track">
+          <div id="battle-player-hp-fill" class="hp-bar-fill hp-bar-player"></div>
+        </div>
+        <p id="battle-player-hp-text" class="hp-text">3 / 3</p>
+      </div>
+
+      <!-- Center: VS + feedback -->
+      <div class="battle-center-col">
+        <div class="battle-vs-badge">VS</div>
+        <div id="battle-feedback" class="battle-feedback" role="status" aria-live="polite"></div>
+        <div id="battle-explanation" class="battle-explanation hidden"></div>
+      </div>
+
+      <div class="battle-side battle-side-enemy">
+        <div class="sprite-frame" id="enemy-sprite-frame">
+          <img id="battle-enemy-sprite" src="" alt="Enemy" class="sprite-img">
+        </div>
+        <p id="battle-enemy-name-under" class="battle-char-label">Enemy</p>
+        <div class="hp-bar-track">
+          <div id="battle-enemy-hp-fill" class="hp-bar-fill hp-bar-enemy"></div>
+        </div>
+        <p id="battle-enemy-hp-text" class="hp-text">1 / 1</p>
+      </div>
+    </div>
+
+    <!-- Question panel (Bookworm style: parchment bottom panel) -->
+    <div class="question-panel">
+      <div class="question-number-badge" id="question-number-badge">Soal 1</div>
+      <p id="question-text" class="question-text">Memuat soal...</p>
+      <div id="answer-options" class="answer-options">
+        <!-- answer buttons injected by JS -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- FLOOR COMPLETE SCREEN -->
+<!-- ======================================================= -->
+<div id="floor-complete-screen" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="result-panel result-panel-success">
+    <div class="result-trophy">🏆</div>
+    <h2 class="panel-title panel-title-success">LANTAI SELESAI!</h2>
+    <p class="result-subtitle">Hebat! Kamu berhasil menaklukkan lantai ini.</p>
+    <div class="result-stats">
+      <div class="result-row"><span>Lantai</span><span id="result-floor-num">1</span></div>
+      <div class="result-row"><span>Topik</span><span id="result-topic">PLSV</span></div>
+      <div class="result-row"><span>Skor Lantai</span><span id="result-floor-score">100 / 100</span></div>
+      <div class="result-row"><span>Skor Total</span><span id="result-total-score">100</span></div>
+      <div class="result-row"><span>Monster Dikalahkan</span><span id="result-npc-progress">3 / 3</span></div>
+      <div class="result-row"><span>Boss</span><span id="result-boss-status">DIKALAHKAN</span></div>
+    </div>
+    <button id="btn-next-floor" class="btn btn-primary">LANTAI BERIKUTNYA ➜</button>
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- GAME CLEAR SCREEN (All 3 floors completed) -->
+<!-- ======================================================= -->
+<div id="game-clear-screen" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="result-panel result-panel-gold">
+    <div class="result-trophy">👑</div>
+    <h2 class="panel-title panel-title-gold">SELAMAT!</h2>
+    <p class="result-subtitle">Kamu telah menaklukkan seluruh dungeon dan menjadi Master Aljabar!</p>
+    <div class="result-stats">
+      <div class="result-row"><span>Skor Akhir</span><span id="clear-total-score">300</span></div>
+      <div class="result-row"><span>Waktu Pengerjaan</span><span id="clear-total-time">00:00</span></div>
+      <div class="result-row"><span>Lantai Diselesaikan</span><span>3 / 3</span></div>
+      <div class="result-row"><span>Semua Boss</span><span>DIKALAHKAN ✓</span></div>
+    </div>
+    <p id="clear-leaderboard-status" class="clear-leaderboard-status"></p>
+    <div class="result-buttons">
+      <button id="btn-play-again" class="btn btn-primary">🔄 MAIN LAGI</button>
+      <button id="btn-clear-menu" class="btn btn-secondary">🏠 MENU</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- GAME OVER SCREEN -->
+<!-- ======================================================= -->
+<div id="game-over-screen" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="result-panel result-panel-danger">
+    <div class="result-trophy">💀</div>
+    <h2 class="panel-title panel-title-danger">GAME OVER</h2>
+    <p class="game-over-text">Kamu telah gugur dalam dungeon...<br>Tapi jangan menyerah! Coba lagi!</p>
+    <div class="result-stats">
+      <div class="result-row"><span>Lantai Terakhir</span><span id="gameover-floor-num">1</span></div>
+      <div class="result-row"><span>Skor Lantai</span><span id="gameover-floor-score">0 / 100</span></div>
+      <div class="result-row"><span>Skor Total</span><span id="gameover-total-score">0</span></div>
+    </div>
+    <div class="result-buttons">
+      <button id="btn-retry" class="btn btn-primary">🔄 COBA LAGI</button>
+      <button id="btn-gameover-menu" class="btn btn-secondary">🏠 MENU UTAMA</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
